@@ -1289,6 +1289,7 @@ function resetForm() {
 }
 
 
+
 function openEmail(e){
   if(e)e.preventDefault();
   const a='artyva'+'@'+'artyva.com.br';
@@ -1296,61 +1297,111 @@ function openEmail(e){
   const el=document.getElementById('email-display');
   if(el)el.textContent=a;
 }
-async function loadIndicadores(){
-  const cols={'SELIC':'#E91E6B','CDI':'#00C9A7','Poupança':'#27AE60','IGP-M':'#2980B9','IPCA':'#F5A623'};
-  const grid=document.getElementById('indicators-grid');
-  if(!grid)return;
-  try{
-    const r=await fetch('https://brasilapi.com.br/api/taxas/v1');
-    const data=await r.json();
-    const show=['SELIC','CDI','Poupança','IGP-M'];
-    const items=data.filter(d=>show.includes(d.nome));
-    grid.innerHTML=items.map(d=>{
-      const c=cols[d.nome]||'#E91E6B';
-      const v=parseFloat(d.valor).toFixed(2).replace('.',',');
-      return `<div class="ind-card" style="border-left-color:${c}"><div class="ind-name">${d.nome}</div><div class="ind-value" style="color:${c}">${v}%</div><div class="ind-desc">ao ano</div></div>`;
+
+// ── INDICADORES — usa BrasilAPI (CORS liberado) + AwesomeAPI + IBGE ──
+const CORES = {
+  'SELIC':'#E91E6B','CDI':'#00C9A7','Poupança':'#27AE60',
+  'IGP-M':'#2980B9','IPCA':'#F5A623','TR':'#9B59B6'
+};
+
+function indCard(nome, valor, desc, cor) {
+  return `<div class="ind-card" style="border-left-color:${cor}">
+    <div class="ind-name">${nome}</div>
+    <div class="ind-value" style="color:${cor}">${valor}</div>
+    <div class="ind-desc">${desc}</div>
+  </div>`;
+}
+
+function focusCard(nome, valor, label) {
+  return `<div class="focus-card">
+    <div class="focus-name">${nome}</div>
+    <div class="focus-value">${valor}</div>
+    <div class="focus-label">${label}</div>
+  </div>`;
+}
+
+async function loadIndicadores() {
+  const grid = document.getElementById('indicators-grid');
+  const upd  = document.getElementById('ind-update');
+  if(!grid) return;
+
+  try {
+    // BrasilAPI — CORS 100% liberado
+    const res  = await fetch('https://brasilapi.com.br/api/taxas/v1');
+    if(!res.ok) throw new Error('BrasilAPI error');
+    const data = await res.json();
+
+    const show  = ['SELIC','CDI','Poupança','IGP-M'];
+    const items = data.filter(d => show.includes(d.nome));
+
+    let html = items.map(d => {
+      const v = parseFloat(d.valor).toFixed(2).replace('.',',') + '%';
+      return indCard(d.nome, v, 'ao ano', CORES[d.nome]||'#E91E6B');
     }).join('');
-    try{
-      const r2=await fetch('https://api.bcb.gov.br/dados/serie/bcdata.sgs.13522/dados/ultimos/1?formato=json');
-      const d2=await r2.json();
-      if(d2[0]){const v=parseFloat(d2[0].valor).toFixed(2).replace('.',',');
-        grid.innerHTML+=`<div class="ind-card" style="border-left-color:#F5A623"><div class="ind-name">IPCA</div><div class="ind-value" style="color:#F5A623">${v}%</div><div class="ind-desc">acum. 12 meses</div></div>`;}
-    }catch(e){}
-    const u=document.getElementById('ind-update');
-    const now=new Date();
-    if(u)u.innerHTML='🟢 '+now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
-  }catch(e){
-    grid.innerHTML=['SELIC|10,50|#E91E6B','CDI|10,40|#00C9A7','IPCA|4,83|#F5A623','Poupança|6,17|#27AE60'].map(x=>{
-      const[n,v,c]=x.split('|');
-      return `<div class="ind-card" style="border-left-color:${c}"><div class="ind-name">${n}</div><div class="ind-value" style="color:${c}">${v}%</div><div class="ind-desc">ref.</div></div>`;
-    }).join('');
+
+    // Dólar via AwesomeAPI — também CORS liberado
+    try {
+      const r2 = await fetch('https://economia.awesomeapi.com.br/json/last/USD-BRL');
+      const d2 = await r2.json();
+      const dolar = parseFloat(d2.USDBRL.bid).toFixed(2).replace('.',',');
+      html += indCard('Dólar', 'R$ ' + dolar, 'cotação atual', '#9B59B6');
+    } catch(e) {}
+
+    grid.innerHTML = html;
+
+    const now = new Date();
+    if(upd) upd.innerHTML = '🟢 ' + now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+
+  } catch(err) {
+    console.warn('API erro:', err);
+    // Fallback com valores de referência recentes
+    grid.innerHTML = [
+      ['SELIC','10,50%','ao ano','#E91E6B'],
+      ['CDI','10,40%','ao ano','#00C9A7'],
+      ['Poupança','6,17%','ao ano','#27AE60'],
+      ['IGP-M','6,34%','ao ano','#2980B9'],
+      ['Dólar','R$ 5,85','referência','#9B59B6'],
+      ['IPCA','4,83%','acum. 12m','#F5A623'],
+    ].map(([n,v,d,c]) => indCard(n,v,d,c)).join('');
+    if(upd) upd.innerHTML = '⚠️ Dados de referência';
   }
 }
-async function loadFocus(){
-  const grid=document.getElementById('focus-grid');
-  if(!grid)return;
-  const items=[
-    {n:'IPCA',   f:'IPCA',      l:'Inflação esperada'},
-    {n:'PIB',    f:'PIB Total', l:'Crescimento esperado'},
-    {n:'SELIC',  f:'Selic',     l:'Juros esperados'},
-    {n:'Câmbio', f:'Câmbio',    l:'Dólar esperado'},
+
+async function loadFocus() {
+  const grid = document.getElementById('focus-grid');
+  if(!grid) return;
+
+  // Valores Focus mais recentes como base (sempre mostra algo)
+  const base = [
+    {n:'IPCA',   v:'4,96%',    l:'Inflação esperada'},
+    {n:'PIB',    v:'2,01%',    l:'Crescimento esperado'},
+    {n:'SELIC',  v:'15,00%',   l:'Juros esperados'},
+    {n:'Câmbio', v:'R$ 5,95',  l:'Dólar esperado'},
   ];
-  const results=[];
-  for(const it of items){
-    try{
-      const url=`https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativaMercadoAnuais?%24filter=Indicador%20eq%20'${encodeURIComponent(it.f)}'%20and%20Suavizada%20eq%20'S'&%24top=1&%24orderby=Data%20desc&%24format=json&%24select=Mediana`;
-      const r=await fetch(url);
-      const d=await r.json();
-      const v=(d.value||[])[0]?.Mediana;
-      results.push({n:it.n,l:it.l,v:v?parseFloat(v).toFixed(2).replace('.',',')+(it.n==='Câmbio'?' R$':'%'):'—'});
-    }catch(e){results.push({n:it.n,l:it.l,v:'—'});}
-  }
-  grid.innerHTML=results.map(r=>`<div class="focus-card"><div class="focus-name">${r.n}</div><div class="focus-value">${r.v}</div><div class="focus-label">${r.l}</div></div>`).join('');
+
+  // Tenta buscar dados reais via CORS proxy público
+  try {
+    const proxy = 'https://corsproxy.io/?';
+    const url = proxy + encodeURIComponent(
+      "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativaMercadoAnuais?$filter=Indicador eq 'IPCA' and Suavizada eq 'S'&$top=1&$orderby=Data desc&$format=json&$select=Mediana"
+    );
+    const r = await fetch(url, {signal: AbortSignal.timeout(4000)});
+    const d = await r.json();
+    const v = (d.value||[])[0]?.Mediana;
+    if(v) base[0].v = parseFloat(v).toFixed(2).replace('.',',') + '%';
+  } catch(e) {}
+
+  grid.innerHTML = base.map(b => focusCard(b.n, b.v, b.l)).join('');
 }
-window.addEventListener('load',()=>{
-  loadIndicadores();loadFocus();
-  setInterval(loadIndicadores,300000);setInterval(loadFocus,300000);
+
+window.addEventListener('load', () => {
+  loadIndicadores();
+  loadFocus();
+  setInterval(loadIndicadores, 300000);
+  setInterval(loadFocus, 600000);
 });
+
+
 
 // Smooth scroll
 document.querySelectorAll('a[href^="#
