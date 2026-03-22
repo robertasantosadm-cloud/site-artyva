@@ -567,8 +567,9 @@ body {
 ════════════════════════════════════════════════ */
 #contact { padding: 100px 0; background: var(--bg2); }
 .contact-inner {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
-  max-width: 1140px; margin: 0 auto; padding: 0 24px; align-items: start;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+  max-width: 1060px; margin: 0 auto; padding: 0 40px; align-items: end;
+  overflow: hidden;
 }
 .contact-info .section-title { font-size: clamp(28px,3.5vw,40px); }
 .contact-cards { display: flex; flex-direction: column; gap: 16px; margin-top: 36px; }
@@ -722,17 +723,49 @@ footer {
 }
 
 
-.ind-sk{height:76px;border-radius:10px;background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;}
+
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .ind-card{background:var(--bg);border-radius:11px;padding:13px 15px;border-left:4px solid;border-top:1px solid var(--bdr);border-right:1px solid var(--bdr);border-bottom:1px solid var(--bdr);transition:transform 0.3s;}
 .ind-card:hover{transform:translateY(-2px);}
-.ind-name{font-size:10px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
-.ind-value{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:2px;}
-.ind-desc{font-size:10px;color:var(--gray);}
+
+
+
 .focus-card{border-radius:10px;padding:12px 14px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);}
 .focus-name{font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
 .focus-value{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--teal);}
 .focus-label{font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;}
+
+
+/* NEWS TICKER */
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+.news-sk {
+  height: 54px; border-radius: 8px;
+  background: linear-gradient(90deg,rgba(255,255,255,0.06) 25%,rgba(255,255,255,0.1) 50%,rgba(255,255,255,0.06) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+.news-card {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 10px 12px; border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+  border-left: 3px solid var(--pink);
+  cursor: pointer; text-decoration: none;
+  transition: background 0.2s;
+}
+.news-card:hover { background: rgba(255,255,255,0.08); }
+.news-card-source {
+  font-size: 9px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--teal); margin-bottom: 3px;
+  font-family: 'Syne', sans-serif;
+}
+.news-card-title {
+  font-size: 12px; color: rgba(255,255,255,0.85);
+  line-height: 1.5; font-family: 'DM Sans', sans-serif;
+}
+.news-card-time { font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 3px; }
 
 </style>
 </head>
@@ -1077,7 +1110,7 @@ footer {
 </section>
 
 <!-- ════════ CONTACT ════════ -->
-<section id="contact">
+<section id="contact" style="overflow-x:hidden;">
   <div class="contact-inner">
     <div class="contact-info reveal-left">
       <div class="section-tag">FALE CONOSCO</div>
@@ -1103,39 +1136,56 @@ footer {
       </div>
     </div>
 
-    <div class="contact-form reveal-right" style="padding:0;background:transparent;box-shadow:none;border:none;">
+    <div class="contact-form reveal-right" style="padding:0;background:transparent;box-shadow:none;border:none;min-width:0;overflow:hidden;max-width:480px;width:100%;margin-left:auto;">
 
-        <!-- INDICADORES ECONÔMICOS -->
-        <div style="background:var(--surf);border-radius:20px;padding:28px;box-shadow:var(--shadow);border:1px solid var(--bdr);margin-bottom:18px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:18px;">
-            <div>
-              <div style="font-family:Syne,sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--pink);margin-bottom:4px;">PAINEL ECONÔMICO</div>
-              <div style="font-family:Syne,sans-serif;font-size:17px;font-weight:800;color:var(--ink)">Indicadores do Mercado</div>
+        <div style="background:var(--dark);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg);border:2px solid rgba(233,30,107,0.25);width:100%;box-sizing:border-box;">
+
+          <!-- Header -->
+          <div style="background:linear-gradient(135deg,var(--pink),#c2185b);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:8px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="width:8px;height:8px;border-radius:50%;background:white;animation:blink 1s infinite;flex-shrink:0"></div>
+              <div style="font-family:Syne,sans-serif;font-size:11px;font-weight:800;color:white;letter-spacing:2px;text-transform:uppercase">📺 Artyva Business News</div>
             </div>
-            <div id="ind-update" style="font-size:10px;color:var(--gray)">Carregando...</div>
+            <div id="news-time" style="font-size:10px;color:rgba(255,255,255,0.85);font-family:Syne,sans-serif;font-weight:600;white-space:nowrap"></div>
           </div>
-          <div id="indicators-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-            <div class="ind-sk"></div><div class="ind-sk"></div>
-            <div class="ind-sk"></div><div class="ind-sk"></div>
-          </div>
-        </div>
 
-        <!-- BOLETIM FOCUS -->
-        <div style="background:var(--dark);border-radius:20px;padding:28px;">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-            <div style="width:7px;height:7px;border-radius:50%;background:var(--teal);animation:blink 2s infinite;flex-shrink:0"></div>
-            <div style="font-family:Syne,sans-serif;font-size:12px;font-weight:700;color:var(--teal);letter-spacing:2px;text-transform:uppercase">Boletim Focus — Banco Central</div>
+          <!-- Ticker -->
+          <div style="background:#111;padding:9px 0;overflow:hidden;border-bottom:1px solid rgba(255,255,255,0.06);">
+            <div style="display:inline-block;animation:ticker 50s linear infinite;white-space:nowrap;">
+              <span style="font-size:11px;color:var(--teal);padding:0 18px;font-family:Syne,sans-serif;font-weight:700">⚡ GESTÃO</span><span style="font-size:11px;color:rgba(255,255,255,0.7);padding:0 18px">72% das MPEs não têm gestão financeira formal — SEBRAE 2024</span><span style="font-size:11px;color:var(--teal);padding:0 18px;font-family:Syne,sans-serif;font-weight:700">⚡ EMPREEND.</span><span style="font-size:11px;color:rgba(255,255,255,0.7);padding:0 18px">Empreendedorismo feminino cresce 34% no Brasil — IBGE 2025</span><span style="font-size:11px;color:var(--teal);padding:0 18px;font-family:Syne,sans-serif;font-weight:700">⚡ ECONOMIA</span><span style="font-size:11px;color:rgba(255,255,255,0.7);padding:0 18px">1 em cada 4 empresas fecha por falta de gestão — IBGE 2023</span><span style="font-size:11px;color:var(--teal);padding:0 18px;font-family:Syne,sans-serif;font-weight:700">⚡ MPEs</span><span style="font-size:11px;color:rgba(255,255,255,0.7);padding:0 18px">Pequenas empresas = 98% dos negócios brasileiros — SEBRAE</span><span style="font-size:11px;color:var(--teal);padding:0 18px;font-family:Syne,sans-serif;font-weight:700">⚡ GESTÃO</span><span style="font-size:11px;color:rgba(255,255,255,0.7);padding:0 18px">72% das MPEs não têm gestão financeira formal — SEBRAE 2024</span><span style="font-size:11px;color:var(--teal);padding:0 18px;font-family:Syne,sans-serif;font-weight:700">⚡ EMPREEND.</span><span style="font-size:11px;color:rgba(255,255,255,0.7);padding:0 18px">Empreendedorismo feminino cresce 34% no Brasil — IBGE 2025</span><span style="font-size:11px;color:var(--teal);padding:0 18px;font-family:Syne,sans-serif;font-weight:700">⚡ ECONOMIA</span><span style="font-size:11px;color:rgba(255,255,255,0.7);padding:0 18px">1 em cada 4 empresas fecha por falta de gestão — IBGE 2023</span>
+            </div>
           </div>
-          <div style="font-size:12px;color:var(--gray);margin-bottom:14px">Expectativas do mercado para os próximos 12 meses</div>
-          <div id="focus-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-            <div class="ind-sk" style="height:64px"></div><div class="ind-sk" style="height:64px"></div>
-            <div class="ind-sk" style="height:64px"></div><div class="ind-sk" style="height:64px"></div>
-          </div>
-          <div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);font-size:10px;color:rgba(255,255,255,0.25)">
-            Fonte: Banco Central do Brasil · Dados em tempo real
-          </div>
-        </div>
 
+          <!-- Cards -->
+          <div style="padding:18px 20px 14px;box-sizing:border-box;">
+            <div style="font-family:Syne,sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:12px">DESTAQUES — NEGÓCIOS E GESTÃO</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+
+              <a href="https://news.google.com/search?q=gestão+pequenas+empresas+brasil&hl=pt-BR" target="_blank" style="display:block;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,0.04);border-left:3px solid #E91E6B;text-decoration:none;box-sizing:border-box;">
+                <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--teal);margin-bottom:3px;font-family:Syne,sans-serif">Google News · Gestão Empresarial</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.5">Últimas notícias sobre gestão e pequenas empresas no Brasil →</div>
+              </a>
+
+              <a href="https://news.google.com/search?q=empreendedorismo+brasil+2026&hl=pt-BR" target="_blank" style="display:block;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,0.04);border-left:3px solid #00C9A7;text-decoration:none;box-sizing:border-box;">
+                <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--teal);margin-bottom:3px;font-family:Syne,sans-serif">Google News · Empreendedorismo</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.5">Notícias sobre empreendedorismo e negócios em 2026 →</div>
+              </a>
+
+              <a href="https://news.google.com/search?q=economia+brasil+mercado&hl=pt-BR" target="_blank" style="display:block;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,0.04);border-left:3px solid #F5A623;text-decoration:none;box-sizing:border-box;">
+                <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--teal);margin-bottom:3px;font-family:Syne,sans-serif">Google News · Economia</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.5">Economia brasileira — acompanhe os últimos acontecimentos →</div>
+              </a>
+
+              <a href="https://agenciasebrae.com.br" target="_blank" style="display:block;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,0.04);border-left:3px solid #9B59B6;text-decoration:none;box-sizing:border-box;">
+                <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--teal);margin-bottom:3px;font-family:Syne,sans-serif">SEBRAE · Boletim de Inteligência</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.5">Boletim de Inteligência Setorial — dados e tendências para MPEs →</div>
+              </a>
+
+            </div>
+            <div style="margin-top:12px;font-size:10px;color:rgba(255,255,255,0.25)">Clique para acessar as notícias · Google News &amp; SEBRAE</div>
+          </div>
+
+        </div>
       </div>
   </div>
 </section>
@@ -1290,6 +1340,9 @@ function resetForm() {
 
 
 
+
+
+
 function openEmail(e){
   if(e)e.preventDefault();
   const a='artyva'+'@'+'artyva.com.br';
@@ -1298,110 +1351,18 @@ function openEmail(e){
   if(el)el.textContent=a;
 }
 
-// ── INDICADORES — usa BrasilAPI (CORS liberado) + AwesomeAPI + IBGE ──
-const CORES = {
-  'SELIC':'#E91E6B','CDI':'#00C9A7','Poupança':'#27AE60',
-  'IGP-M':'#2980B9','IPCA':'#F5A623','TR':'#9B59B6'
-};
-
-function indCard(nome, valor, desc, cor) {
-  return `<div class="ind-card" style="border-left-color:${cor}">
-    <div class="ind-name">${nome}</div>
-    <div class="ind-value" style="color:${cor}">${valor}</div>
-    <div class="ind-desc">${desc}</div>
-  </div>`;
+// Relógio em tempo real
+function updateClock(){
+  const el=document.getElementById('news-time');
+  if(!el)return;
+  const now=new Date();
+  el.textContent=now.toLocaleString('pt-BR',{
+    weekday:'short',day:'2-digit',month:'short',
+    hour:'2-digit',minute:'2-digit'
+  }).toUpperCase();
 }
-
-function focusCard(nome, valor, label) {
-  return `<div class="focus-card">
-    <div class="focus-name">${nome}</div>
-    <div class="focus-value">${valor}</div>
-    <div class="focus-label">${label}</div>
-  </div>`;
-}
-
-async function loadIndicadores() {
-  const grid = document.getElementById('indicators-grid');
-  const upd  = document.getElementById('ind-update');
-  if(!grid) return;
-
-  try {
-    // BrasilAPI — CORS 100% liberado
-    const res  = await fetch('https://brasilapi.com.br/api/taxas/v1');
-    if(!res.ok) throw new Error('BrasilAPI error');
-    const data = await res.json();
-
-    const show  = ['SELIC','CDI','Poupança','IGP-M'];
-    const items = data.filter(d => show.includes(d.nome));
-
-    let html = items.map(d => {
-      const v = parseFloat(d.valor).toFixed(2).replace('.',',') + '%';
-      return indCard(d.nome, v, 'ao ano', CORES[d.nome]||'#E91E6B');
-    }).join('');
-
-    // Dólar via AwesomeAPI — também CORS liberado
-    try {
-      const r2 = await fetch('https://economia.awesomeapi.com.br/json/last/USD-BRL');
-      const d2 = await r2.json();
-      const dolar = parseFloat(d2.USDBRL.bid).toFixed(2).replace('.',',');
-      html += indCard('Dólar', 'R$ ' + dolar, 'cotação atual', '#9B59B6');
-    } catch(e) {}
-
-    grid.innerHTML = html;
-
-    const now = new Date();
-    if(upd) upd.innerHTML = '🟢 ' + now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
-
-  } catch(err) {
-    console.warn('API erro:', err);
-    // Fallback com valores de referência recentes
-    grid.innerHTML = [
-      ['SELIC','10,50%','ao ano','#E91E6B'],
-      ['CDI','10,40%','ao ano','#00C9A7'],
-      ['Poupança','6,17%','ao ano','#27AE60'],
-      ['IGP-M','6,34%','ao ano','#2980B9'],
-      ['Dólar','R$ 5,85','referência','#9B59B6'],
-      ['IPCA','4,83%','acum. 12m','#F5A623'],
-    ].map(([n,v,d,c]) => indCard(n,v,d,c)).join('');
-    if(upd) upd.innerHTML = '⚠️ Dados de referência';
-  }
-}
-
-async function loadFocus() {
-  const grid = document.getElementById('focus-grid');
-  if(!grid) return;
-
-  // Valores Focus mais recentes como base (sempre mostra algo)
-  const base = [
-    {n:'IPCA',   v:'4,96%',    l:'Inflação esperada'},
-    {n:'PIB',    v:'2,01%',    l:'Crescimento esperado'},
-    {n:'SELIC',  v:'15,00%',   l:'Juros esperados'},
-    {n:'Câmbio', v:'R$ 5,95',  l:'Dólar esperado'},
-  ];
-
-  // Tenta buscar dados reais via CORS proxy público
-  try {
-    const proxy = 'https://corsproxy.io/?';
-    const url = proxy + encodeURIComponent(
-      "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativaMercadoAnuais?$filter=Indicador eq 'IPCA' and Suavizada eq 'S'&$top=1&$orderby=Data desc&$format=json&$select=Mediana"
-    );
-    const r = await fetch(url, {signal: AbortSignal.timeout(4000)});
-    const d = await r.json();
-    const v = (d.value||[])[0]?.Mediana;
-    if(v) base[0].v = parseFloat(v).toFixed(2).replace('.',',') + '%';
-  } catch(e) {}
-
-  grid.innerHTML = base.map(b => focusCard(b.n, b.v, b.l)).join('');
-}
-
-window.addEventListener('load', () => {
-  loadIndicadores();
-  loadFocus();
-  setInterval(loadIndicadores, 300000);
-  setInterval(loadFocus, 600000);
-});
-
-
+setInterval(updateClock,1000);
+updateClock();
 
 // Smooth scroll
 document.querySelectorAll('a[href^="#
