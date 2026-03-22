@@ -703,6 +703,37 @@ footer {
   .numbers-grid { grid-template-columns: 1fr 1fr; }
   .how-steps { grid-template-columns: 1fr; }
 }
+
+/* ── FIX: Ícones visíveis em fundo escuro ── */
+.value-item .value-icon {
+  font-size: 22px;
+  filter: brightness(1.4) saturate(1.3);
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.diff-icon-wrap {
+  width: 64px; height: 64px; border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; margin-bottom: 20px;
+  filter: brightness(1.3) saturate(1.2);
+}
+
+
+.ind-sk{height:76px;border-radius:10px;background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.ind-card{background:var(--bg);border-radius:11px;padding:13px 15px;border-left:4px solid;border-top:1px solid var(--bdr);border-right:1px solid var(--bdr);border-bottom:1px solid var(--bdr);transition:transform 0.3s;}
+.ind-card:hover{transform:translateY(-2px);}
+.ind-name{font-size:10px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
+.ind-value{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:2px;}
+.ind-desc{font-size:10px;color:var(--gray);}
+.focus-card{border-radius:10px;padding:12px 14px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);}
+.focus-name{font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
+.focus-value{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--teal);}
+.focus-label{font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;}
+
 </style>
 </head>
 <body>
@@ -720,7 +751,7 @@ footer {
       <li><a href="#testimonials">Clientes</a></li>
       <li><a href="#contact">Contato</a></li>
     </ul>
-    <a href="https://wa.me/551123684091?text=Oi%2C%20Roberta%21%20%F0%9F%92%97%0A%0AVim%20pelo%20site%20da%20Artyva%20e%20fiquei%20curiosa%20para%20saber%20mais%21%0A%0APodemos%20conversar%20com%20calma%3F%20Quero%20entender%20como%20voc%C3%AAs%20podem%20me%20ajudar.%20%F0%9F%98%8A" class="btn btn-pink nav-cta" target="_blank">
+    <a href="https://wa.me/551123684091?text=Oi%2C%20Roberta%21%20%F0%9F%92%97%0A%0AVim%20pelo%20site%20da%20Artyva%20e%20quero%20saber%20mais%20sobre%20os%20servi%C3%A7os%21%0A%0APodemos%20conversar%3F%20%F0%9F%98%8A" class="btn btn-pink nav-cta" target="_blank">
       💬 Fale Conosco
     </a>
     <div class="nav-hamburger" id="hamburger">
@@ -771,7 +802,7 @@ footer {
         Assessoria administrativa completa para micro e pequenos empreendedores crescerem com organização, clareza e resultado — sem complicação.
       </p>
       <div class="hero-actions">
-        <a href="https://wa.me/551123684091?text=Oi%2C%20Roberta%21%20%F0%9F%92%97%0A%0AQue%20bom%20te%20encontrar%20por%20aqui%21%20Vim%20pelo%20site%20da%20Artyva%20e%20me%20identifiquei%20muito%20com%20o%20prop%C3%B3sito%20de%20voc%C3%AAs.%0A%0AQuero%20entender%20como%20a%20assessoria%20pode%20ajudar%20o%20meu%20neg%C3%B3cio%20a%20crescer%20com%20mais%20leveza%20e%20organiza%C3%A7%C3%A3o.%20Podemos%20conversar%3F%20%F0%9F%98%8A" class="btn btn-wpp" target="_blank">
+        <a href="https://wa.me/551123684091?text=Oi%2C%20Roberta%21%20%F0%9F%92%97%0A%0AVim%20pelo%20site%20da%20Artyva%20e%20me%20identifiquei%20muito%20com%20o%20prop%C3%B3sito%20de%20voc%C3%AAs.%0A%0AGostaria%20de%20entender%20como%20a%20assessoria%20pode%20ajudar%20o%20meu%20neg%C3%B3cio%20a%20crescer%20com%20mais%20organiza%C3%A7%C3%A3o%20e%20resultado.%20Podemos%20conversar%3F%20%F0%9F%98%8A" class="btn btn-wpp" target="_blank">
           💬 Quero Conhecer a Artyva
         </a>
         <a href="#services" class="btn btn-outline">Ver Serviços ↓</a>
@@ -934,9 +965,9 @@ footer {
         <div class="value-item v1"><span class="value-icon">🎯</span><span class="value-text">Integridade</span></div>
         <div class="value-item v2"><span class="value-icon">🤝</span><span class="value-text">Comprometimento</span></div>
         <div class="value-item v3"><span class="value-icon">💡</span><span class="value-text">Inovação Constante</span></div>
-        <div class="value-item v4"><span class="value-icon">♀</span><span class="value-text">Empreend. Feminino</span></div>
-        <div class="value-item v5"><span class="value-icon">♡</span><span class="value-text">Responsabilidade Social</span></div>
-        <div class="value-item v6"><span class="value-icon">⚖</span><span class="value-text">Ética &amp; Transparência</span></div>
+        <div class="value-item v4"><span class="value-icon">👩‍💼</span><span class="value-text">Empreend. Feminino</span></div>
+        <div class="value-item v5"><span class="value-icon">❤️</span><span class="value-text">Responsabilidade Social</span></div>
+        <div class="value-item v6"><span class="value-icon">⚖️</span><span class="value-text">Ética &amp; Transparência</span></div>
       </div>
     </div>
   </div>
@@ -988,7 +1019,7 @@ footer {
         <div class="diff-desc">Atuamos com integridade em cada interação. Nossa relação é baseada em confiança e verdade.</div>
       </div>
       <div class="diff-card reveal delay-4">
-        <div class="diff-icon-wrap" style="background:rgba(39,174,96,0.22);font-size:30px">♀️</div>
+        <div class="diff-icon-wrap" style="background:rgba(39,174,96,0.22);font-size:30px">👩‍💼</div>
         <div class="diff-title">Liderança Feminina</div>
         <div class="diff-desc">Empresa liderada por mulher, para todos. A diversidade é nossa força motriz e compromisso diário.</div>
       </div>
@@ -1037,7 +1068,7 @@ footer {
     <h2 class="cta-title">Seu negócio merece uma<br><span>gestão de verdade.</span></h2>
     <p class="cta-sub">O diagnóstico é gratuito. Em uma conversa, já identificamos onde seu negócio pode crescer mais.</p>
     <div class="cta-actions">
-      <a href="https://wa.me/551123684091?text=Oi%2C%20Roberta%21%20%F0%9F%92%97%0A%0AVim%20pelo%20site%20da%20Artyva%20e%20adorei%20o%20que%20vi%21%20Meu%20neg%C3%B3cio%20precisa%20de%20mais%20organiza%C3%A7%C3%A3o%20e%20quero%20entender%20como%20voc%C3%AAs%20podem%20me%20ajudar%20nessa%20jornada.%0A%0AQuando%20tiver%20um%20tempinho%2C%20pode%20me%20chamar%3F%20%F0%9F%99%8F" class="btn btn-wpp" target="_blank">
+      <a href="https://wa.me/551123684091?text=Oi%2C%20Roberta%21%20%F0%9F%92%97%0A%0AVim%20pelo%20site%20da%20Artyva%20e%20adorei%20o%20que%20vi%21%0A%0AMeu%20neg%C3%B3cio%20precisa%20de%20mais%20organiza%C3%A7%C3%A3o%20e%20quero%20entender%20como%20voc%C3%AAs%20podem%20ajudar%20nessa%20jornada.%20Quando%20tiver%20um%20tempinho%2C%20pode%20me%20chamar%3F%20%F0%9F%99%8F" class="btn btn-wpp" target="_blank">
         💬 Quero Organizar Meu Negócio
       </a>
       <a href="#contact" class="btn btn-outline">Ou envie uma mensagem</a>
@@ -1057,9 +1088,9 @@ footer {
           <div class="cc-icon">💬</div>
           <div><span class="cc-label">WhatsApp</span><span class="cc-value">(11) 2368-4091</span></div>
         </a>
-        <a href="mailto:artyva@artyva.com.br" class="contact-card cc2">
+        <a href="#" onclick="openEmail(event)" class="contact-card cc2">
           <div class="cc-icon">📧</div>
-          <div><span class="cc-label">E-mail</span><span class="cc-value"><span class="__cf_email__" data-cfemail="86e7f4f2fff0e7c6e7f4f2fff0e7a8e5e9eba8e4f4">[email&#160;protected]</span></span></div>
+          <div><span class="cc-label">E-mail</span><span class="cc-value"><span class="__cf_email__" data-cfemail="86e7f4f2fff0e7c6e7f4f2fff0e7a8e5e9eba8e4f4">artyva@artyva.com.br</span></span></div>
         </a>
         <a href="https://instagram.com/artyva_adm" class="contact-card cc3" target="_blank">
           <div class="cc-icon">📸</div>
@@ -1072,44 +1103,40 @@ footer {
       </div>
     </div>
 
-    <div class="contact-form reveal-right">
-      <div class="form-title">Envie uma mensagem</div>
-      <form onsubmit="handleForm(event)">
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Seu nome *</label>
-            <input type="text" class="form-input" placeholder="Como posso te chamar?" required>
+    <div class="contact-form reveal-right" style="padding:0;background:transparent;box-shadow:none;border:none;">
+
+        <!-- INDICADORES ECONÔMICOS -->
+        <div style="background:var(--surf);border-radius:20px;padding:28px;box-shadow:var(--shadow);border:1px solid var(--bdr);margin-bottom:18px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:18px;">
+            <div>
+              <div style="font-family:Syne,sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--pink);margin-bottom:4px;">PAINEL ECONÔMICO</div>
+              <div style="font-family:Syne,sans-serif;font-size:17px;font-weight:800;color:var(--ink)">Indicadores do Mercado</div>
+            </div>
+            <div id="ind-update" style="font-size:10px;color:var(--gray)">Carregando...</div>
           </div>
-          <div class="form-group">
-            <label class="form-label">WhatsApp *</label>
-            <input type="tel" class="form-input" placeholder="(11) 9 0000-0000" required>
+          <div id="indicators-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div class="ind-sk"></div><div class="ind-sk"></div>
+            <div class="ind-sk"></div><div class="ind-sk"></div>
           </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">E-mail</label>
-          <input type="email" class="form-input" placeholder="seu@email.com">
+
+        <!-- BOLETIM FOCUS -->
+        <div style="background:var(--dark);border-radius:20px;padding:28px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <div style="width:7px;height:7px;border-radius:50%;background:var(--teal);animation:blink 2s infinite;flex-shrink:0"></div>
+            <div style="font-family:Syne,sans-serif;font-size:12px;font-weight:700;color:var(--teal);letter-spacing:2px;text-transform:uppercase">Boletim Focus — Banco Central</div>
+          </div>
+          <div style="font-size:12px;color:var(--gray);margin-bottom:14px">Expectativas do mercado para os próximos 12 meses</div>
+          <div id="focus-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div class="ind-sk" style="height:64px"></div><div class="ind-sk" style="height:64px"></div>
+            <div class="ind-sk" style="height:64px"></div><div class="ind-sk" style="height:64px"></div>
+          </div>
+          <div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);font-size:10px;color:rgba(255,255,255,0.25)">
+            Fonte: Banco Central do Brasil · Dados em tempo real
+          </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Seu negócio</label>
-          <select class="form-select">
-            <option value="">Selecione o segmento</option>
-            <option>Comércio / Varejo</option>
-            <option>Restaurante / Alimentação</option>
-            <option>Serviços / Profissional Liberal</option>
-            <option>Saúde e Bem-estar</option>
-            <option>Moda e Beleza</option>
-            <option>Tecnologia</option>
-            <option>Educação</option>
-            <option>Outro</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Mensagem</label>
-          <textarea class="form-textarea" placeholder="Conta um pouco sobre o que você precisa..."></textarea>
-        </div>
-        <button type="submit" class="form-submit">Enviar Mensagem →</button>
-      </form>
-    </div>
+
+      </div>
   </div>
 </section>
 
@@ -1122,7 +1149,7 @@ footer {
       <div class="footer-social">
         <a href="https://instagram.com/artyva_adm" class="social-link" target="_blank">📸</a>
         <a href="https://wa.me/551123684091" class="social-link" target="_blank">💬</a>
-        <a href="mailto:artyva@artyva.com.br" class="social-link">📧</a>
+        <a href="#" onclick="openEmail(event)" class="social-link">📧</a>
       </div>
     </div>
     <div>
@@ -1193,14 +1220,137 @@ document.getElementById('menu-close').onclick  = () => document.getElementById('
 function closeMobile() { document.getElementById('mobile-menu').classList.remove('open'); }
 
 // Form submit → WhatsApp
-function handleForm(e) {
-  e.preventDefault();
-  const form = e.target;
-  const name = form.querySelector('input[type=text]').value;
-  const phone = form.querySelector('input[type=tel]').value;
-  const msg = encodeURIComponent(`Oi, Roberta! 💗\n\nMeu nome é ${name} e meu WhatsApp é ${phone}.\n\nVim pelo site da Artyva, me identifiquei muito com o propósito de vocês e quero entender como a assessoria pode ajudar o meu negócio.\n\nQuando tiver um tempinho, topa uma conversa? 😊`);
+ e meu WhatsApp é ${phone}.\n\nVim pelo site da Artyva, me identifiquei muito com o propósito de vocês e quero entender como a assessoria pode ajudar o meu negócio.\n\nQuando tiver um tempinho, topa uma conversa? 😊`);
   window.open(`https://wa.me/551123684091?text=${msg}`, '_blank');
 }
+
+
+function handleForm(e) {
+  e.preventDefault();
+
+  const name    = (document.getElementById('f-name')    || {value:''}).value.trim();
+  const phone   = (document.getElementById('f-phone')   || {value:''}).value.trim();
+  const email   = (document.getElementById('f-email')   || {value:''}).value.trim();
+  const negocio = (document.getElementById('f-negocio') || {value:''}).value;
+  const msg     = (document.getElementById('f-msg')     || {value:''}).value.trim();
+
+  if (!name || !phone) {
+    alert('Por favor, preencha seu nome e WhatsApp. 😊');
+    return;
+  }
+
+  // Loading state
+  const btn = document.getElementById('form-btn');
+  if (btn) {
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+    btn.style.opacity = '0.7';
+  }
+
+  // Monta texto WhatsApp
+  let wppTxt = `Oi, Roberta! 💗\n\nMeu nome é ${name} e meu WhatsApp é ${phone}.`;
+  if (email)   wppTxt += `\nE-mail: ${email}`;
+  if (negocio) wppTxt += `\nNegócio: ${negocio}`;
+  if (msg)     wppTxt += `\n\n${msg}`;
+  wppTxt += `\n\nVim pelo site da Artyva e gostaria de conversar sobre os serviços. 😊`;
+
+  // 1. Abre WhatsApp
+  const wppUrl = 'https://wa.me/551123684091?text=' + encodeURIComponent(wppTxt);
+  setTimeout(() => { window.open(wppUrl, '_blank'); }, 400);
+
+  // 2. Envia email via mailto (abre cliente de email como fallback confiável)
+  const emailSubject = encodeURIComponent(`Contato via site — ${name}`);
+  const emailBody    = encodeURIComponent(
+    `Nome: ${name}\nWhatsApp: ${phone}${email ? '\nE-mail: ' + email : ''}${negocio ? '\nNegócio: ' + negocio : ''}\n\nMensagem:\n${msg || '(sem mensagem adicional)'}`
+  );
+  const mailtoUrl = `mailto:artyva@artyva.com.br?subject=${emailSubject}&body=${emailBody}`;
+  setTimeout(() => {
+    const a = document.createElement('a');
+    a.href = mailtoUrl;
+    a.click();
+  }, 1200);
+
+  // 3. Mostra tela de sucesso
+  setTimeout(() => {
+    const form = document.getElementById('contact-form');
+    const success = document.getElementById('form-success');
+    if (form) form.style.display = 'none';
+    if (success) success.style.display = 'block';
+  }, 600);
+}
+
+function resetForm() {
+  const form = document.getElementById('contact-form');
+  const success = document.getElementById('form-success');
+  const btn = document.getElementById('form-btn');
+  if (form) { form.reset(); form.style.display = 'block'; }
+  if (success) success.style.display = 'none';
+  if (btn) { btn.textContent = 'Enviar Mensagem →'; btn.disabled = false; btn.style.opacity = '1'; }
+}
+
+
+function openEmail(e){
+  if(e)e.preventDefault();
+  const a='artyva'+'@'+'artyva.com.br';
+  window.location.href='mailto:'+a;
+  const el=document.getElementById('email-display');
+  if(el)el.textContent=a;
+}
+async function loadIndicadores(){
+  const cols={'SELIC':'#E91E6B','CDI':'#00C9A7','Poupança':'#27AE60','IGP-M':'#2980B9','IPCA':'#F5A623'};
+  const grid=document.getElementById('indicators-grid');
+  if(!grid)return;
+  try{
+    const r=await fetch('https://brasilapi.com.br/api/taxas/v1');
+    const data=await r.json();
+    const show=['SELIC','CDI','Poupança','IGP-M'];
+    const items=data.filter(d=>show.includes(d.nome));
+    grid.innerHTML=items.map(d=>{
+      const c=cols[d.nome]||'#E91E6B';
+      const v=parseFloat(d.valor).toFixed(2).replace('.',',');
+      return `<div class="ind-card" style="border-left-color:${c}"><div class="ind-name">${d.nome}</div><div class="ind-value" style="color:${c}">${v}%</div><div class="ind-desc">ao ano</div></div>`;
+    }).join('');
+    try{
+      const r2=await fetch('https://api.bcb.gov.br/dados/serie/bcdata.sgs.13522/dados/ultimos/1?formato=json');
+      const d2=await r2.json();
+      if(d2[0]){const v=parseFloat(d2[0].valor).toFixed(2).replace('.',',');
+        grid.innerHTML+=`<div class="ind-card" style="border-left-color:#F5A623"><div class="ind-name">IPCA</div><div class="ind-value" style="color:#F5A623">${v}%</div><div class="ind-desc">acum. 12 meses</div></div>`;}
+    }catch(e){}
+    const u=document.getElementById('ind-update');
+    const now=new Date();
+    if(u)u.innerHTML='🟢 '+now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  }catch(e){
+    grid.innerHTML=['SELIC|10,50|#E91E6B','CDI|10,40|#00C9A7','IPCA|4,83|#F5A623','Poupança|6,17|#27AE60'].map(x=>{
+      const[n,v,c]=x.split('|');
+      return `<div class="ind-card" style="border-left-color:${c}"><div class="ind-name">${n}</div><div class="ind-value" style="color:${c}">${v}%</div><div class="ind-desc">ref.</div></div>`;
+    }).join('');
+  }
+}
+async function loadFocus(){
+  const grid=document.getElementById('focus-grid');
+  if(!grid)return;
+  const items=[
+    {n:'IPCA',   f:'IPCA',      l:'Inflação esperada'},
+    {n:'PIB',    f:'PIB Total', l:'Crescimento esperado'},
+    {n:'SELIC',  f:'Selic',     l:'Juros esperados'},
+    {n:'Câmbio', f:'Câmbio',    l:'Dólar esperado'},
+  ];
+  const results=[];
+  for(const it of items){
+    try{
+      const url=`https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativaMercadoAnuais?%24filter=Indicador%20eq%20'${encodeURIComponent(it.f)}'%20and%20Suavizada%20eq%20'S'&%24top=1&%24orderby=Data%20desc&%24format=json&%24select=Mediana`;
+      const r=await fetch(url);
+      const d=await r.json();
+      const v=(d.value||[])[0]?.Mediana;
+      results.push({n:it.n,l:it.l,v:v?parseFloat(v).toFixed(2).replace('.',',')+(it.n==='Câmbio'?' R$':'%'):'—'});
+    }catch(e){results.push({n:it.n,l:it.l,v:'—'});}
+  }
+  grid.innerHTML=results.map(r=>`<div class="focus-card"><div class="focus-name">${r.n}</div><div class="focus-value">${r.v}</div><div class="focus-label">${r.l}</div></div>`).join('');
+}
+window.addEventListener('load',()=>{
+  loadIndicadores();loadFocus();
+  setInterval(loadIndicadores,300000);setInterval(loadFocus,300000);
+});
 
 // Smooth scroll
 document.querySelectorAll('a[href^="#
